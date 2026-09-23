@@ -1,12 +1,13 @@
+import { SafeAreaView } from '@/components/custom-native-components';
 import { Link } from 'expo-router';
-import { Text, View } from 'react-native';
+import { Text } from 'react-native';
 
 const Register = () => {
   return (
-    <View>
+    <SafeAreaView className="flex-1 bg-background p-4">
       <Text>Register</Text>
       <Link href="/(auth)/login">Sign In</Link>
-    </View>
+    </SafeAreaView>
   );
 };
 

@@ -1,10 +1,11 @@
-import { Text, View } from 'react-native';
+import { SafeAreaView } from '@/components/custom-native-components';
+import { Text } from 'react-native';
 
 const Onboarding = () => {
   return (
-    <View>
+    <SafeAreaView className="flex-1 bg-background p-4">
       <Text>Onboarding</Text>
-    </View>
+    </SafeAreaView>
   );
 };
 

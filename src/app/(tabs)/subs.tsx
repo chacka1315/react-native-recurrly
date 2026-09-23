@@ -1,9 +1,10 @@
-import { Text, View } from 'react-native';
+import { SafeAreaView } from '@/components/custom-native-components';
+import { Text } from 'react-native';
 
 export default function Subs() {
   return (
-    <View>
+    <SafeAreaView className="flex-1 bg-background p-4">
       <Text>Subs</Text>
-    </View>
+    </SafeAreaView>
   );
 }
