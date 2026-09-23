@@ -1,15 +1,16 @@
-import type { Icon, ImageSourcePropType } from 'react-native';
+import type { LucideIcon } from 'lucide-react-native';
+import type { ImageSourcePropType } from 'react-native';
 
 declare global {
   interface AppTab {
     name: string;
     title: string;
-    icon: Icon;
+    icon: LucideIcon;
   }
 
   interface TabIconProps {
     focused: boolean;
-    icon: Icon;
+    icon: LucideIcon;
   }
 
   interface Subscription {

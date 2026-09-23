@@ -25,7 +25,6 @@ export default function TabLayout() {
           paddingBottom: insets.bottom,
           paddingLeft: insets.left,
           paddingRight: insets.right,
-          height: 55,
         },
 
         tabBarActiveTintColor: colors.accent,
