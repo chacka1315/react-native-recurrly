@@ -32,8 +32,22 @@
           "image": "./assets/images/splash-icon.png",
           "imageWidth": 76
         }
+      ],
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "./assets/fonts/PlusJakartaSans-Regular.ttf",
+            "./assets/fonts/PlusJakartaSams-Bold.ttf",
+            "./assets/fonts/PlusJakartaSams-Medium.ttf",
+            "./assets/fonts/PlusJakartaSams-SemiBold.ttf",
+            "./assets/fonts/PlusJakartaSams-ExtraBold.ttf",
+            "./assets/fonts/PlusJakartaSams-Light.ttf"
+          ]
+        }
       ]
     ],
+
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
