@@ -14,7 +14,7 @@ export const tabs: AppTab[] = [
 ];
 
 export const HOME_USER = {
-  name: 'Adrian | JS Mastery',
+  name: 'Nami | Crw Navigator',
 };
 
 export const HOME_BALANCE = {
@@ -29,7 +29,7 @@ export const UPCOMING_SUBSCRIPTIONS: UpcomingSubscription[] = [
     name: 'Spotify',
     price: 5.99,
     currency: 'USD',
-    daysLeft: 2,
+    dueDate: '2026-10-20',
   },
   {
     id: 'notion',
@@ -37,7 +37,7 @@ export const UPCOMING_SUBSCRIPTIONS: UpcomingSubscription[] = [
     name: 'Notion',
     price: 12.0,
     currency: 'USD',
-    daysLeft: 4,
+    dueDate: '2026-09-30',
   },
   {
     id: 'figma',
@@ -45,7 +45,7 @@ export const UPCOMING_SUBSCRIPTIONS: UpcomingSubscription[] = [
     name: 'Figma',
     price: 15.0,
     currency: 'USD',
-    daysLeft: 6,
+    dueDate: '2026-10-15',
   },
 ];
 
