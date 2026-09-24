@@ -1,4 +1,4 @@
-import avatar from '@/assets/images/avatar.jpg';
-import splashPattern from '@/assets/images/splash-pattern.png';
+import avatar from '../assets/images/avatar.jpg';
+import splashPattern from '../assets/images/splash-pattern.png';
 
 export default { splashPattern, avatar };

@@ -38,16 +38,17 @@
         {
           "fonts": [
             "./assets/fonts/PlusJakartaSans-Regular.ttf",
-            "./assets/fonts/PlusJakartaSams-Bold.ttf",
-            "./assets/fonts/PlusJakartaSams-Medium.ttf",
-            "./assets/fonts/PlusJakartaSams-SemiBold.ttf",
-            "./assets/fonts/PlusJakartaSams-ExtraBold.ttf",
-            "./assets/fonts/PlusJakartaSams-Light.ttf"
+            "./assets/fonts/PlusJakartaSans-Bold.ttf",
+            "./assets/fonts/PlusJakartaSans-Medium.ttf",
+            "./assets/fonts/PlusJakartaSans-SemiBold.ttf",
+            "./assets/fonts/PlusJakartaSans-ExtraBold.ttf",
+            "./assets/fonts/PlusJakartaSans-Light.ttf"
           ]
         }
-      ]
+      ],
+      "expo-secure-store",
+      "@clerk/expo"
     ],
-
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true

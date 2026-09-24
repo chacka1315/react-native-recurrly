@@ -1,22 +1,124 @@
 @import 'tailwindcss/theme.css' layer(theme);
 @import 'tailwindcss/preflight.css' layer(base);
 @import 'tailwindcss/utilities.css';
-
 @import 'nativewind/theme';
 
-@theme {
-  --color-background: #fff9e3;
-  --color-foreground: #081126;
-  --color-card: #fff8e7;
-  --color-muted: #f6eecf;
-  --color-muted-foreground: rgba(0, 0, 0, 0.6);
-  --color-primary: #081126;
-  --color-accent: #ea7a53;
-  --color-border: rgba(0, 0, 0, 0.1);
-  --color-success: #16a34a;
-  --color-destructive: #dc2626;
-  --color-subscription: #8fd1bd;
+/* ─── Theme: design tokens (light / dark) ─────────────────────────
+   1. :root              — light defaults (all platforms)
+   2. @media dark :root  — dark defaults; nativewind maps this to
+                           Appearance.getColorScheme() on native.
+   3. :root.dark / :root.light — higher specificity for web class toggle. */
+@layer theme {
+  :root {
+    --primary: 8 17 38;
+    --primary-foreground: 255 249 227;
+    --card: 255 248 231;
+    --secondary: 246 238 207;
+    --secondary-foreground: 8 17 38;
+    --background: 255 249 227;
+    --popover: 255 248 231;
+    --popover-foreground: 8 17 38;
+    --muted: 246 238 207;
+    --muted-foreground: 92 86 72;
+    --destructive: 220 38 38;
+    --foreground: 8 17 38;
+    --border: 230 224 204;
+    --input: 230 224 204;
+    --ring: 234 122 83;
+    --accent: 234 122 83;
+    --accent-foreground: 8 17 38;
+    --success: 22 163 74;
+    --subscription: 143 209 189;
+  }
 
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --primary: 255 245 245;
+      --primary-foreground: 23 23 23;
+      --card: 23 23 23;
+      --secondary: 38 38 38;
+      --secondary-foreground: 250 250 250;
+      --background: 10 10 10;
+      --popover: 23 23 23;
+      --popover-foreground: 250 250 250;
+      --muted: 38 38 38;
+      --muted-foreground: 161 161 161;
+      --destructive: 255 100 103;
+      --foreground: 250 250 250;
+      --border: 46 46 46;
+      --input: 46 46 46;
+      --accent: 38 38 38;
+      --accent-foreground: 250 250 250;
+      --ring: 115 115 115;
+    }
+  }
+
+  :root.dark {
+    --primary: 255 245 245;
+    --primary-foreground: 23 23 23;
+    --card: 23 23 23;
+    --secondary: 38 38 38;
+    --secondary-foreground: 250 250 250;
+    --background: 10 10 10;
+    --popover: 23 23 23;
+    --popover-foreground: 250 250 250;
+    --muted: 38 38 38;
+    --muted-foreground: 161 161 161;
+    --destructive: 255 100 103;
+    --foreground: 250 250 250;
+    --border: 46 46 46;
+    --input: 46 46 46;
+    --accent: 38 38 38;
+    --accent-foreground: 250 250 250;
+    --ring: 115 115 115;
+  }
+
+  :root.light {
+    --primary: 8 17 38;
+    --primary-foreground: 255 249 227;
+    --card: 255 248 231;
+    --secondary: 246 238 207;
+    --secondary-foreground: 8 17 38;
+    --background: 255 249 227;
+    --popover: 255 248 231;
+    --popover-foreground: 8 17 38;
+    --muted: 246 238 207;
+    --muted-foreground: 92 86 72;
+    --destructive: 220 38 38;
+    --foreground: 8 17 38;
+    --border: 230 224 204;
+    --input: 230 224 204;
+    --ring: 234 122 83;
+    --accent: 234 122 83;
+    --accent-foreground: 8 17 38;
+    --success: 22 163 74;
+    --subscription: 143 209 189;
+  }
+}
+
+@theme inline {
+  --color-primary: rgb(var(--primary));
+  --color-primary-foreground: rgb(var(--primary-foreground));
+  --color-card: rgb(var(--card));
+  --color-secondary: rgb(var(--secondary));
+  --color-secondary-foreground: rgb(var(--secondary-foreground));
+  --color-background: rgb(var(--background));
+  --color-popover: rgb(var(--popover));
+  --color-popover-foreground: rgb(var(--popover-foreground));
+  --color-muted: rgb(var(--muted));
+  --color-muted-foreground: rgb(var(--muted-foreground));
+  --color-destructive: rgb(var(--destructive));
+  --color-foreground: rgb(var(--foreground));
+  --color-border: rgb(var(--border));
+  --color-input: rgb(var(--input));
+  --color-ring: rgb(var(--ring));
+  --color-accent: rgb(var(--accent));
+  --color-accent-foreground: rgb(var(--accent-foreground));
+  --color-success: rgb(var(--success));
+  --color-subscription: rgb(var(--subscription));
+}
+
+@theme {
   --spacing-0: 0px;
   --spacing-1: 4px;
   --spacing-2: 8px;
@@ -71,7 +173,7 @@
   }
 
   .home-avatar {
-    @apply size-16 rounded-full;
+    @apply size-15 rounded-full;
   }
 
   .home-user-name {
@@ -275,7 +377,7 @@
   }
 
   .auth-card {
-    @apply mt-8 rounded-3xl border border-border bg-card p-5;
+    @apply mt-8 rounded-3xl border border-border bg-white p-5;
   }
 
   .auth-form {
