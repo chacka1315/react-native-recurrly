@@ -1,6 +1,7 @@
 import { SafeAreaView } from '@/components/custom-native-components';
 import { Button, ButtonSpinner, ButtonText } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
+import { posthog } from '@/lib/posthog';
 import { useAuth, useSignIn } from '@clerk/expo';
 import { Link, Redirect, router } from 'expo-router';
 import { useMemo, useState } from 'react';
@@ -98,6 +99,14 @@ const Login = () => {
         if (finalizeResult.error) {
           throw finalizeResult.error;
         }
+        posthog?.capture('user_signed_in', {
+          auth_method: 'email_password',
+          verification_required: false,
+        });
+        posthog?.logger.info('authentication completed', {
+          flow: 'sign_in',
+          verification_required: false,
+        });
         router.replace('/(tabs)');
         return;
       }
@@ -121,6 +130,9 @@ const Login = () => {
         if (codeResult.error) {
           throw codeResult.error;
         }
+        posthog?.capture('sign_in_verification_requested', {
+          verification_method: 'email_code',
+        });
         setIsVerifying(true);
         setErrors({});
         return;
@@ -128,6 +140,7 @@ const Login = () => {
 
       setErrors({ form: 'Your sign-in could not be completed.' });
     } catch (error: any) {
+      posthog?.captureException(error, { auth_flow: 'sign_in' });
       setErrors({
         form: getClerkErrorMessage(
           error,
@@ -157,12 +170,21 @@ const Login = () => {
         if (finalizeResult.error) {
           throw finalizeResult.error;
         }
+        posthog?.capture('user_signed_in', {
+          auth_method: 'email_password',
+          verification_required: true,
+        });
+        posthog?.logger.info('authentication completed', {
+          flow: 'sign_in',
+          verification_required: true,
+        });
         router.replace('/(tabs)');
         return;
       }
 
       setErrors({ form: 'The verification is not complete yet.' });
     } catch (error: any) {
+      posthog?.captureException(error, { auth_flow: 'sign_in_verification' });
       setErrors({
         form: getClerkErrorMessage(error, 'The verification code is invalid.'),
       });
@@ -180,8 +202,14 @@ const Login = () => {
       if (result.error) {
         throw result.error;
       }
+      posthog?.capture('sign_in_verification_resent', {
+        verification_method: 'email_code',
+      });
       setErrors({});
     } catch (error: any) {
+      posthog?.captureException(error, {
+        auth_flow: 'sign_in_verification_resend',
+      });
       setErrors({
         form: getClerkErrorMessage(error, 'Unable to resend the code.'),
       });

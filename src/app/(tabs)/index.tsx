@@ -3,6 +3,7 @@ import ListHeading from '@/components/ListHeading';
 import SubCard from '@/components/SubCard';
 import UpcomingSubCard from '@/components/UpcomingSubCard';
 import '@/global.css';
+import { posthog } from '@/lib/posthog';
 import { formatCurrency } from '@/lib/utils';
 import { useUser } from '@clerk/expo';
 import { format } from 'date-fns';
@@ -82,9 +83,12 @@ export default function App() {
   const userMail = user?.primaryEmailAddress?.toString();
 
   const handleSubCardPress = (currId: string | null) => {
-    expandedSubId === currId
-      ? setExpandedSubId(null)
-      : setExpandedSubId(currId);
+    const isExpanded = expandedSubId !== currId;
+    setExpandedSubId(isExpanded ? currId : null);
+    posthog?.capture('subscription_details_toggled', {
+      subscription_id: currId,
+      is_expanded: isExpanded,
+    });
   };
   return (
     <SafeAreaView className="flex-1 bg-background p-4">

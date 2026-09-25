@@ -1,6 +1,7 @@
 import { SafeAreaView } from '@/components/custom-native-components';
 import { Button, ButtonSpinner, ButtonText } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
+import { posthog } from '@/lib/posthog';
 import { useAuth, useSignUp } from '@clerk/expo';
 import { Link, Redirect, router } from 'expo-router';
 import { useMemo, useState } from 'react';
@@ -143,9 +144,13 @@ const Register = () => {
       if (verificationResult.error) {
         throw verificationResult.error;
       }
+      posthog?.capture('registration_verification_requested', {
+        verification_method: 'email_code',
+      });
       setIsVerifying(true);
       setErrors({});
     } catch (error: any) {
+      posthog?.captureException(error, { auth_flow: 'registration' });
       setErrors({
         form: getClerkErrorMessage(
           error,
@@ -181,6 +186,20 @@ const Register = () => {
         if (finalizeResult.error) {
           throw finalizeResult.error;
         }
+        if (signUp.createdUserId) {
+          posthog?.identify(signUp.createdUserId, {
+            email: form.email.trim(),
+            name: `${form.firstName.trim()} ${form.lastName.trim()}`,
+          });
+        }
+        posthog?.capture('account_created', {
+          auth_method: 'email_password',
+          verification_method: 'email_code',
+        });
+        posthog?.logger.info('account registration completed', {
+          flow: 'registration',
+          verification_method: 'email_code',
+        });
         router.replace('/(tabs)');
         return;
       }
@@ -189,6 +208,9 @@ const Register = () => {
         form: 'Your verification could not be completed. Please try again.',
       });
     } catch (error: any) {
+      posthog?.captureException(error, {
+        auth_flow: 'registration_verification',
+      });
       setErrors({
         form: getClerkErrorMessage(error, 'The code entered is invalid.'),
       });
@@ -205,8 +227,14 @@ const Register = () => {
       if (resendResult.error) {
         throw resendResult.error;
       }
+      posthog?.capture('registration_verification_resent', {
+        verification_method: 'email_code',
+      });
       setErrors({ form: 'A new verification code has been sent.' });
     } catch (error: any) {
+      posthog?.captureException(error, {
+        auth_flow: 'registration_verification_resend',
+      });
       setErrors({
         form: getClerkErrorMessage(
           error,

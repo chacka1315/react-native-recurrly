@@ -8,8 +8,9 @@ import {
   AlertDialogHeader,
 } from '@/components/ui/alert-dialog';
 import { Button, ButtonIcon, ButtonText } from '@/components/ui/button';
+import { posthog } from '@/lib/posthog';
 import { useClerk } from '@clerk/expo';
-import { Redirect } from 'expo-router';
+import { router } from 'expo-router';
 import { LogOut } from 'lucide-react-native';
 import { useState } from 'react';
 import { ActivityIndicator, Text, View } from 'react-native';
@@ -23,10 +24,17 @@ const Settings = () => {
     try {
       setIsSigningOut(true);
       await signOut();
+      posthog?.capture('user_signed_out');
+      posthog?.logger.info('session sign-out completed', {
+        flow: 'sign_out',
+      });
+      posthog?.reset();
       setIsDialogOpen(false);
+      router.replace('/(auth)/login');
+    } catch (error) {
+      posthog?.captureException(error, { auth_flow: 'sign_out' });
     } finally {
       setIsSigningOut(false);
-      <Redirect href="/(auth)/login" />;
     }
   };
 
